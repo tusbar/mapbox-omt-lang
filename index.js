@@ -19,6 +19,10 @@ const NON_LATIN = [
   'zh'
 ]
 
+/**
+ * @param {string} field Mapbox GL field name.
+ * @returns {boolean} Returns whether the field is translatable.
+ */
 const isLangField = field => {
   return /^\{name[}:_]/.test(field)
 }
