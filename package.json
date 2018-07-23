@@ -1,6 +1,6 @@
 {
   "name": "mapbox-omt-lang",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Update the language of your OpenMapTiles vector tiles for Mapbox GL JS.",
   "main": "dist/mapbox-omt-lang.js",
   "module": "dist/mapbox-omt-lang.m.js",
