@@ -23,6 +23,16 @@ const mapLang = new MapboxOmtLang('fr')
 map.addControl(mapLang)
 ```
 
+## See also
+
+* [mapbox-gl-language](https://github.com/mapbox/mapbox-gl-language): Switch language of your Mapbox GL JS style
+* [openmaptiles-language](https://github.com/klokantech/openmaptiles-language): Javascript library for changing language of OpenMapTiles map in mapbox-gl-js
+
+## Why another library
+
+* [mapbox-gl-language](https://github.com/mapbox/mapbox-gl-language) doesn’t work with openmaptiles styles.
+* [openmaptiles-language](https://github.com/klokantech/openmaptiles-language) modifies mapboxgl.Map’s prototype and isn’t published as an NPM package.
+
 ## License
 
 MIT
