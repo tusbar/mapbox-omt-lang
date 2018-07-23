@@ -23,7 +23,7 @@ const isLangField = field => {
   return /^\{name[}:_]/.test(field)
 }
 
-class MapLang {
+class MapboxOmtLang {
   /**
    * @param {string} lang Initial language code.
    * @param {boolean} [alt=true] Enable alternative labels.
@@ -132,4 +132,4 @@ class MapLang {
   }
 }
 
-export default MapLang
+export default MapboxOmtLang

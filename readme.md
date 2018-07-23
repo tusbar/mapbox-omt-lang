@@ -13,6 +13,17 @@
 $ npm install mapbox-omt-lang
 ```
 
+## Usage
+
+This library exposes a `MapboxOmtLang` class that is used as a Mapbox GL JS map control.
+
+```js
+const map = new mapboxgl.Map({/* options */})
+const mapLang = new MapboxOmtLang('fr')
+
+map.addControl(mapLang)
+```
+
 ## License
 
 MIT
