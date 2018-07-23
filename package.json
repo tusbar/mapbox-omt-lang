@@ -6,7 +6,8 @@
   "module": "dist/mapbox-omt-lang.m.js",
   "repository": "git@github.com:tusbar/mapbox-omt-lang.git",
   "scripts": {
-    "build": "microbundle --name MapboxOmtLang"
+    "build": "microbundle --name MapboxOmtLang",
+    "prepublishOnly": "yarn build"
   },
   "author": "Bertrand Marron <bertrand.marron@gmail.com>",
   "license": "MIT",
