@@ -10,6 +10,19 @@
   },
   "author": "Bertrand Marron <bertrand.marron@gmail.com>",
   "license": "MIT",
+  "files": [
+    "index.js",
+    "dist"
+  ],
+  "keywords": [
+    "mapbox",
+    "mapboxgl",
+    "openmaptiles",
+    "i18n",
+    "l10n",
+    "lang",
+    "language"
+  ],
   "devDependencies": {
     "babel-eslint": "^8.2.6",
     "microbundle": "^0.6.0",
