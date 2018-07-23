@@ -2,18 +2,23 @@
   "name": "mapbox-omt-lang",
   "version": "0.0.1",
   "description": "Update the language of your OpenMapTiles vector tiles for Mapbox GL JS.",
-  "main": "index.js",
+  "main": "dist/mapbox-omt-lang.js",
+  "module": "dist/mapbox-omt-lang.m.js",
   "repository": "git@github.com:tusbar/mapbox-omt-lang.git",
+  "scripts": {
+    "build": "microbundle --name MapboxOmtLang"
+  },
   "author": "Bertrand Marron <bertrand.marron@gmail.com>",
   "license": "MIT",
   "devDependencies": {
+    "babel-eslint": "^8.2.6",
+    "microbundle": "^0.6.0",
     "xo": "^0.21.1"
   },
   "xo": {
     "semicolon": false,
-    "space": 2,
-    "ignores": [
-      "example/**"
-    ]
+    "parser": "babel-eslint",
+    "env": "browser",
+    "space": 2
   }
 }
