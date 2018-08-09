@@ -1,24 +1,3 @@
-const NON_LATIN = [
-  'ar',
-  'be',
-  'bg',
-  'el',
-  'he',
-  'hy',
-  'ja',
-  'ja_kana',
-  'ka',
-  'kk',
-  'kn',
-  'ko',
-  'mk',
-  'ru',
-  'sr',
-  'th',
-  'uk',
-  'zh'
-]
-
 /**
  * @param {string} field Mapbox GL field name.
  * @returns {boolean} Returns whether the field is translatable.
@@ -30,11 +9,14 @@ const isLangField = field => {
 class MapboxOmtLang {
   /**
    * @param {string} lang Initial language code.
-   * @param {boolean} [alt=true] Enable alternative labels.
    * @public
    */
-  constructor(lang, alt = true) {
-    this._updateLang(lang, alt)
+  constructor(lang) {
+    if (!lang) {
+      throw new TypeError('The lang option is mandatory')
+    }
+
+    this.lang = lang
   }
 
   onAdd(map) {
@@ -52,86 +34,46 @@ class MapboxOmtLang {
 
   /**
    * @param {string} lang Language code to switch to.
-   * @param {boolean} [alt=true] Enable alternative labels.
    * @public
    */
-  setLanguage(lang, alt = true) {
-    this._updateLang(lang, alt)
+  setLanguage(lang) {
+    if (!lang) {
+      throw new TypeError('The lang option is mandatory')
+    }
 
-    this._map.setStyle(
-      this._updateStyle(
-        this._map.getStyle()
-      )
-    )
+    this.lang = lang
+
+    this._updateLayers()
   }
 
   /**
    * @private
    */
   _onStyleData({style}) {
-    this._map.setStyle(
-      this._updateStyle(style.stylesheet)
+    this.localizedLayers = style.stylesheet.layers.filter(layer =>
+      layer.layout && isLangField(layer.layout['text-field'])
     )
+
+    this._updateLayers()
   }
 
   /**
-   * @param {string} lang Language code to switch to.
-   * @param {boolean} alt Enable alternative labels.
    * @private
    */
-  _updateLang(lang, alt) {
-    if (!lang) {
-      throw new TypeError('The lang option is mandatory')
+  _updateLayers() {
+    const style = [
+      'coalesce',
+      ['get', `name:${this.lang}`]
+    ]
+
+    if (this.lang === 'en' || this.lang === 'de') {
+      style.push(['get', `name_${this.lang}`])
     }
 
-    this.lang = lang
-    this.alt = alt
-    this.separator = lang === 'en' || lang === 'de' ? '_' : ':'
-    this.isLatin = !NON_LATIN.includes(lang)
-  }
+    style.push(['get', 'name'])
 
-  /**
-   * @param {object} style Mapbox GL style.
-   * @returns {object} Updated Mapbox GL style.
-   * @private
-   */
-  _updateStyle(style) {
-    const layers = style.layers.map(layer => {
-      if (!layer.layout || !layer.layout['text-field']) {
-        return layer
-      }
-
-      let textField = layer.layout['text-field']
-      if (!isLangField(textField)) {
-        return layer
-      }
-
-      textField = `{name${this.separator}${this.lang}}`
-
-      if (this.alt) {
-        const alt = this.isLatin ? '{name:nonlatin}' : '{name:latin}'
-
-        if (layer.layout['symbol-placement'] === 'line') {
-          textField += ` ${alt}`
-        } else {
-          textField += `\n${alt}`
-        }
-      }
-
-      layer = {
-        ...layer,
-        layout: {
-          ...layer.layout,
-          'text-field': textField
-        }
-      }
-
-      return layer
-    })
-
-    return {
-      ...style,
-      layers
+    for (const layer of this.localizedLayers) {
+      this._map.setLayoutProperty(layer.id, 'text-field', style)
     }
   }
 }
