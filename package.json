@@ -24,6 +24,9 @@
     "lang",
     "language"
   ],
+  "peerDependencies": {
+    "mapbox-gl": "*"
+  },
   "devDependencies": {
     "babel-eslint": "^8.2.6",
     "microbundle": "^0.6.0",
