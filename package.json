@@ -29,7 +29,7 @@
   },
   "devDependencies": {
     "babel-eslint": "^8.2.6",
-    "microbundle": "^0.6.0",
+    "microbundle": "^0.8.3",
     "xo": "^0.22.0"
   },
   "xo": {
